@@ -1,16 +1,24 @@
 const users = [
-    { id: 1, name: "Juan Pérez", email: "juanperez@example.com", age: 28, ageRange: "adult" },
-    { id: 2, name: "María Gómez", email: "mariagomez@example.com", age: 34, ageRange: "adult" }, //lo del range lo podría sacar en otra lógica
-    { id: 3, name: "Luis Rodríguez", email: "luisrodriguez@example.com", age: 17, ageRange: "young" },
-    { id: 4, name: "Ana Martínez", email: "anamartinez@example.com", age: 60, ageRange: "senior" }
+    { id: 1, name: "Juan Pérez", email: "juanperez@example.com", age: 28 },
+    { id: 2, name: "María Gómez", email: "mariagomez@example.com", age: 34},
+    { id: 3, name: "Luis Rodríguez", email: "luisrodriguez@example.com", age: 17},
+    { id: 4, name: "Ana Martínez", email: "anamartinez@example.com", age: 60} 
 ];
+
+const ageRanges = {
+    young: { min: 0, max: 17 },
+    adult: { min: 18, max: 59 },
+    senior: { min: 60, max: 120 }
+};
 
 const getAllUsers = () => {
     return users;
 };
 
 const getUsersOfAgeRange = (ageRange) => {
-    const usersOfRange = users.filter(user => user.ageRange === ageRange);
+
+    const ageRange = ageRanges[ageRange];
+    const usersOfRange = users.filter(user => user.age > ageRange.min && user.age < ageRange.max);
     return {
         count: usersOfRange.length,
         data: usersOfRange
