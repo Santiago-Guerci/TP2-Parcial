@@ -1,7 +1,8 @@
 const users = [
     { id: 1, name: "Juan Pérez", email: "juanperez@example.com", age: 28, ageRange: "Adult" },
     { id: 2, name: "María Gómez", email: "mariagomez@example.com", age: 34, ageRange: "Adult" }, //lo del range lo podría sacar en otra lógica
-    { id: 3, name: "Luis Rodríguez", email: "luisrodriguez@example.com", age: 17, ageRange: "Young" }
+    { id: 3, name: "Luis Rodríguez", email: "luisrodriguez@example.com", age: 17, ageRange: "Young" },
+    { id: 4, name: "Ana Martínez", email: "anamartinez@example.com", age: 60, ageRange: "Senior" }
 ];
 
 const getAllUsers = () => {
@@ -45,4 +46,12 @@ const deleteUser = (id) => {
         users.splice(userIndex, 1);
         return "El usuario ha sido eliminado";
     }
+}
+
+export default {
+    getAllUsers,
+    getUsersOfAgeRange,
+    addUser,
+    updateUser,
+    deleteUser
 }
