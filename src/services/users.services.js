@@ -1,4 +1,4 @@
-import Factory from '../factory/users.factory.js';
+import Factory from '../models/DAO/dao.factory.js';
 
 const usersModel = await Factory("MEM"); //Usar MEM o FS
 

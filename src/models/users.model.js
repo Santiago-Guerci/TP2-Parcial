@@ -1,8 +1,8 @@
 const users = [
-    { id: 1, name: "Juan Pérez", email: "juanperez@example.com", age: 28, ageRange: "Adult" },
-    { id: 2, name: "María Gómez", email: "mariagomez@example.com", age: 34, ageRange: "Adult" }, //lo del range lo podría sacar en otra lógica
-    { id: 3, name: "Luis Rodríguez", email: "luisrodriguez@example.com", age: 17, ageRange: "Young" },
-    { id: 4, name: "Ana Martínez", email: "anamartinez@example.com", age: 60, ageRange: "Senior" }
+    { id: 1, name: "Juan Pérez", email: "juanperez@example.com", age: 28, ageRange: "adult" },
+    { id: 2, name: "María Gómez", email: "mariagomez@example.com", age: 34, ageRange: "adult" }, //lo del range lo podría sacar en otra lógica
+    { id: 3, name: "Luis Rodríguez", email: "luisrodriguez@example.com", age: 17, ageRange: "young" },
+    { id: 4, name: "Ana Martínez", email: "anamartinez@example.com", age: 60, ageRange: "senior" }
 ];
 
 const getAllUsers = () => {
@@ -23,7 +23,7 @@ const addUser = (newUser) => {
         return "El usuario ya existe";
     } else {
         const newId = users.length ? users[users.length - 1].id + 1 : 1;
-        newUser.id = newId;
+        newUser = { id: newId, ...newUser }; //esto es solo por el toc que lo pusheaba al final y no al principio, y en la rta del json me quedaba desparejo
         users.push(newUser);
         return "Nuevo usuario agregado";
     }

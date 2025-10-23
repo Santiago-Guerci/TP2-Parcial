@@ -14,7 +14,7 @@ const getAllUsers = async (req, res) => {
 const getUsersByAgeRange = async (req, res) => {
   try {
     const ageRange = req.params.range;
-    const data = await userServices.getUsersByAgeRange(ageRange);
+    const data = await userServices.getUsersOfAgeRange(ageRange);
     res.send(data);
   } catch (error) {
     res.send("Hubo un error al obtener los usuarios: " + error.message);
@@ -23,8 +23,8 @@ const getUsersByAgeRange = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const userData = JSON.parse(req.body);
-    const data = await userServices.createUser(userData);
+    const userData = req.body;
+    const data = await userServices.postUser(userData);
     res.send(data);
   } catch (error) {
     res.send("Hubo un error al crear el usuario: " + error.message);

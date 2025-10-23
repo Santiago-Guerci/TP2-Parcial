@@ -7,14 +7,12 @@ const validateUserRange = (req, res, next) => {
 }
 
 const validateUserCreation = (req, res, next) => {
-  const userData = JSON.parse(req.body);
+  const userData = req.body;
   if (!userData.name || !userData.age || !userData.email) {
+    console.log("fallo la validación")
     return res.send("Datos de usuario incompletos");
   }
   next();
 }
 
-export default {
-  validateUserRange,
-  validateUserCreation
-}
+export { validateUserRange, validateUserCreation };
