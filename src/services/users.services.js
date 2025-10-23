@@ -1,5 +1,6 @@
-import usersModel from '../models/users.model.js';
-//si aca hiciese factory, importaría del archivo users.factory.js
+import Factory from '../factory/users.factory.js';
+
+const usersModel = await Factory("MEM"); //Usar MEM o FS
 
 const getAllUsers = () => {
     return usersModel.getAllUsers();

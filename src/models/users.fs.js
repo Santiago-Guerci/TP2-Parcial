@@ -1,23 +1,30 @@
-const users = [
-    { id: 1, name: "Juan Pérez", email: "juanperez@example.com", age: 28, ageRange: "Adult" },
-    { id: 2, name: "María Gómez", email: "mariagomez@example.com", age: 34, ageRange: "Adult" }, //lo del range lo podría sacar en otra lógica
-    { id: 3, name: "Luis Rodríguez", email: "luisrodriguez@example.com", age: 17, ageRange: "Young" },
-    { id: 4, name: "Ana Martínez", email: "anamartinez@example.com", age: 60, ageRange: "Senior" }
-];
+import fs from 'fs';
 
-const getAllUsers = () => {
+const readFile = async () => {
+    const data = await fs.promises.readFile("users.json", "utf-8")
+    return JSON.parse(data)
+}
+
+const writeFile = async (data) => {
+    await fs.promises.writeFile("users.json", JSON.stringify(data, null, 2));
+}
+
+const getAllUsers = async () => {
+    const users = await readFile();
     return users;
-};
+}
 
-const getUsersOfAgeRange = (ageRange) => {
+const getUsersOfAgeRange = async (ageRange) => {
+    const users = await readFile();
     const usersOfRange = users.filter(user => user.ageRange === ageRange);
-    return {
+     return {
         count: usersOfRange.length,
         data: usersOfRange
     };
-};
+}
 
-const addUser = (newUser) => {
+const addUser = async (newUser) => {
+    const users = await readFile();
     const userExists = users.find(user => user.email === newUser.email);
     if (userExists) {
         return "El usuario ya existe";
@@ -25,27 +32,32 @@ const addUser = (newUser) => {
         const newId = users.length ? users[users.length - 1].id + 1 : 1;
         newUser.id = newId;
         users.push(newUser);
+        await writeFile(users);
         return "Nuevo usuario agregado";
     }
 }
 
-const updateUser = (id, updatedInfo) => {
+const updateUser = async (id, updatedInfo) => {
+    const users = await readFile();
     const userIndex = users.findIndex(user => user.id === id);
     if (userIndex === -1) {
         return "El usuario no existe";
     } else {
-        const newUser = { ...users[userIndex], ...updatedInfo };
-        users[userIndex] = newUser;
+        const updatedUser = { ...users[userIndex], ...updatedInfo };
+        users[userIndex] = updatedUser;
+        await writeFile(users);
         return "El usuario ha sido actualizado";
     }
 }
 
-const deleteUser = (id) => {
+const deleteUser = async (id) => {
+    const users = await readFile();
     const userIndex = users.findIndex(user => user.id === id);
     if (userIndex === -1) {
         return "El usuario no existe";
     } else {
         users.splice(userIndex, 1);
+        await writeFile(users);
         return "El usuario ha sido eliminado";
     }
 }

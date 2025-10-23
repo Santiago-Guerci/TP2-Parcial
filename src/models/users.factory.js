@@ -1,1 +1,0 @@
-import usersModel from "./users.model.js";
