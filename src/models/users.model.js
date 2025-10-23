@@ -18,12 +18,14 @@ const getUsersOfAgeRange = (ageRange) => {
 };
 
 const addUser = (newUser) => {
-    const userExists = users.some(user => user.email === newUser.email);
+    const userExists = users.find(user => user.email === newUser.email);
     if (userExists) {
         return "El usuario ya existe";
     } else {
+        const newId = users.length ? users[users.length - 1].id + 1 : 1;
+        newUser.id = newId;
         users.push(newUser);
-        return "El usuario ha sido agregado";
+        return "Nuevo usuario agregado";
     }
 }
 
