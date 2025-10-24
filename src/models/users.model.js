@@ -16,9 +16,8 @@ const getAllUsers = () => {
 };
 
 const getUsersOfAgeRange = (ageRange) => {
-
-    const ageRange = ageRanges[ageRange];
-    const usersOfRange = users.filter(user => user.age > ageRange.min && user.age < ageRange.max);
+    const range = ageRanges[ageRange];
+    const usersOfRange = users.filter(user => user.age >= range.min && user.age <= range.max);
     return {
         count: usersOfRange.length,
         data: usersOfRange

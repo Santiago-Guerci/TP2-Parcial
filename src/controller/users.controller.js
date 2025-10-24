@@ -33,9 +33,9 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const userData = JSON.parse(req.body);
-    const data = await userServices.updateUser(userId, userData);
+    const userId = parseInt(req.params.id);
+    const userData = req.body;
+    const data = await userServices.putUser(userId, userData);
     res.send(data);
   } catch (error) {
     res.send("Hubo un error al actualizar el usuario: " + error.message);
