@@ -9,6 +9,12 @@ const writeFile = async (data) => {
     await fs.promises.writeFile("users.json", JSON.stringify(data, null, 2));
 }
 
+const ageRanges = {
+    young: { min: 0, max: 17 },
+    adult: { min: 18, max: 59 },
+    senior: { min: 60, max: 120 }
+};
+
 const getAllUsers = async () => {
     const users = await readFile();
     return users;
@@ -16,7 +22,8 @@ const getAllUsers = async () => {
 
 const getUsersOfAgeRange = async (ageRange) => {
     const users = await readFile();
-    const usersOfRange = users.filter(user => user.ageRange === ageRange);
+    const range = ageRanges[ageRange];
+    const usersOfRange = users.filter(user => user.age >= range.min && user.age <= range.max);
      return {
         count: usersOfRange.length,
         data: usersOfRange
@@ -30,7 +37,7 @@ const addUser = async (newUser) => {
         return "El usuario ya existe";
     } else {
         const newId = users.length ? users[users.length - 1].id + 1 : 1;
-        newUser.id = newId;
+        newUser = { id: newId, ...newUser };
         users.push(newUser);
         await writeFile(users);
         return "Nuevo usuario agregado";
@@ -43,8 +50,8 @@ const updateUser = async (id, updatedInfo) => {
     if (userIndex === -1) {
         return "El usuario no existe";
     } else {
-        const updatedUser = { ...users[userIndex], ...updatedInfo };
-        users[userIndex] = updatedUser;
+        const newUser = { ...users[userIndex], ...updatedInfo };
+        users[userIndex] = newUser;
         await writeFile(users);
         return "El usuario ha sido actualizado";
     }

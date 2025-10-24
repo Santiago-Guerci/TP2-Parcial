@@ -44,7 +44,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = parseInt(req.params.id);
     const data = await userServices.deleteUser(userId);
     res.send(data);
   } catch (error) {
